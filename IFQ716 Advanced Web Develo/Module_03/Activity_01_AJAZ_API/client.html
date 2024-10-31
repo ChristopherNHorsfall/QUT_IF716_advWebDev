@@ -1,0 +1,20 @@
+<script>
+    async function getData() {
+        let res = await fetch("http://localhost:3000/data", {method: "GET"});
+        let data = await res.json();
+        console.log(data);
+
+        let dataDiv = document.querySelector("#data");
+        for (let cat of data) {
+            const paragraph = document.createElement("p")
+            const text = document.createTextNode(cat);
+            paragraph.appendChild(text);
+
+            dataDiv.appendChild(paragraph);
+        }
+    }
+    getData();
+</script>
+
+<h1>Naughty Client</h1>
+<div id="data"></div>
