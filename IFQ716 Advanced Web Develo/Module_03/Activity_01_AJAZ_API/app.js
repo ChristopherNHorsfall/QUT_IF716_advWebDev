@@ -32,6 +32,26 @@ function routing(req,res){
             res.writeHead(200, {"content-Type":"application/json"});
             res.write(JSON.stringify(data));
             res.end();
+        } else if (method === 'POST') {
+
+            let body = '';
+
+            //collect data as it arrives
+            req.on( 'data', chunk => {
+                body += chunk.toString();
+            });
+
+            req.on('end', () => {
+                //Parse the incoming JSON data
+                const newCat = JSON.parse(body).cat;
+
+                //Add the new cat breed to the data array
+                data.push(newCat);
+
+                res.writeHead(201, {'Content-Type': 'application/json'});
+                res.write(JSON.stringify({ message: "Cat breed added", data}));
+                res.end();
+            });
         }
     } else if (url.startsWith("/login")) {
         if (method == "POST") {

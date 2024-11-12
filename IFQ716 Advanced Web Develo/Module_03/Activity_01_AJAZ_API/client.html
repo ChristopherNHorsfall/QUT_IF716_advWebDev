@@ -1,4 +1,4 @@
-<script>
+ <script>
     async function getData() {
         let res = await fetch("http://localhost:3000/data", {method: "GET"});
         let data = await res.json();
@@ -14,7 +14,28 @@
         }
     }
     getData();
+
+    function getForm(e) {
+        e.preventDefault();
+        const cat = document.querySelector('#cat').value;
+
+        //Send the POST request using fetch
+        fetch('/data',{
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({ cat })
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+    }
 </script>
 
 <h1>Naughty Client</h1>
 <div id="data"></div>
+<form id='form' onsubmit="return getForm(event)">
+    <input id="cat"/>
+    <input type="submit"/>
+</form>
