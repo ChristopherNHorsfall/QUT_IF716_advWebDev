@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <p id="weather"> The current weather is: </p>
+        <script>
+            fetch("http://localhost:3000/weather")
+                .then(res => res.json())
+                .then(weather => {
+                    const report = weather.condition + ' ' + weather.temperature + '°C';
+                    document.getElementById("weather").appendChild(document.createTextNode(report));
+
+                });
+        </script>
+    </body>
+</html>
